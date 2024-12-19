@@ -1,15 +1,43 @@
-"""
-Experimental file
-Please DO NOT PUSH changes to this file 
-"""
 from fake_graphs import *
 from plot_graph import plot_graph
-from productions.p1.production1 import ProductionP1
-from productions.p2.production2 import ProductionP2
+from productions.p11.production11 import ProductionP11
 
 if __name__ == '__main__':
-    G = valid_graph2()
+    G = nx.Graph()
+    G.add_node("S:5.0:5.0", label="P", R=1)
+    G.add_nodes_from(
+        [
+            ("v:0.0:0.0", {"label": "v", "x": 17.0, "y": 7.0, "h": 0}),
+            ("v:10.0:0.0", {"label": "v", "x": 10.0, "y": 0.0, "h": 0}),
+            ("v:10.0:10.0", {"label": "v", "x": 0.0, "y": 7.0, "h": 0}),
+            ("v:15.0:5.0", {"label": "v", "x": 2.0, "y": 2.0, "h": 0}),
+            ("v:7.5:12.5", {"label": "v", "x": 7, "y": 12, "h": 1}),
+            ("v:0.0:10.0", {"label": "v", "x": 0.0, "y": 10.0, "h": 1}),
+            ("v:15.0:15.0", {"label": "v", "x": 15.0, "y": 15.0, "h": 0}),
+        ]
+    )
+    G.add_edges_from(
+        [
+            ("v:0.0:0.0", "v:10.0:0.0", {"label": "E", "B": 1}),
+            ("v:15.0:5.0", "v:10.0:10.0", {"label": "E", "B": 1}),
+            ("v:10.0:0.0", "v:15.0:5.0", {"label": "E", "B": 1}),
+            ("v:10.0:10.0", "v:0.0:10.0", {"label": "E", "B": 1}),
+            ("v:0.0:10.0", "v:7.5:12.5", {"label": "E", "B": 1}),
+            ("v:7.5:12.5", "v:15.0:15.0", {"label": "E", "B": 1}),
+            ("v:15.0:15.0", "v:0.0:0.0", {"label": "E", "B": 1}),
+
+            ("S:5.0:5.0", "v:0.0:0.0"),
+            ("S:5.0:5.0", "v:15.0:5.0"),
+            ("S:5.0:5.0", "v:10.0:0.0"),
+            ("S:5.0:5.0", "v:10.0:10.0"),
+            ("S:5.0:5.0", "v:0.0:10.0"),
+            ("S:5.0:5.0", "v:15.0:15.0"),
+            ("S:5.0:5.0", "v:7.5:12.5"),
+
+        ]
+    )
+
     plot_graph(G)
-    prod2 = ProductionP2(G)
-    prod2.apply()
+    prod10 = ProductionP11(G)
+    prod10.apply()
     plot_graph(G)
