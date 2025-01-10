@@ -2,7 +2,7 @@ from fake_graphs import *
 from plot_graph import plot_graph
 from productions.p22.production22 import ProductionP22
 
-if __name__ == '__main__':
+def graph_missing_edge() -> nx.Graph:
     G = nx.Graph()
     # Add the center node
     G.add_nodes_from([
@@ -34,13 +34,17 @@ if __name__ == '__main__':
         ('P:0.5:0.5', 'v:0.0:0.5'),
         ('P:0.5:0.5', 'v:0.5:0.0'),
 
-        ('Q:1.5:0.75', 'v:1.0:1.0'),
+        #('Q:1.5:0.75', 'v:1.0:1.0'),
         ('Q:1.5:0.75', 'v:1.0:0.5'),
         ('Q:1.5:0.75', 'v:2.0:0.5'),
         ('Q:1.5:0.75', 'v:2.0:1.0'),
     ])
+    return G
 
-    plot_graph(G)
-    prod22 = ProductionP22(G)
-    prod22.apply()
-    plot_graph(G)
+def test():
+    graph = graph_missing_edge()
+    production = ProductionP22(graph)
+    plot_graph(graph)
+
+    result = production.extract_left_side()
+    assert result is None, "No suitable nodes found to apply the production"
