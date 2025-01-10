@@ -2,14 +2,14 @@ from fake_graphs import *
 from plot_graph import plot_graph
 from productions.p12.production12 import ProductionP12
 
-def graph_missing_vertex() -> nx.Graph:
+def graph_missing_edge() -> nx.Graph:
     G = nx.Graph()
     # Add the center node
     G.add_node("S:5.0:5.0", label="P", R=1)
 
     # Add nodes to form a hexagon with two hanging nodes
     G.add_nodes_from([
-        #("v:0.0:5.0", {"label": "v", "x": 0.0, "y": 5.0, "h": 0}),  # Left vertex
+        ("v:0.0:5.0", {"label": "v", "x": 0.0, "y": 5.0, "h": 0}),  # Left vertex
         ("v:2.5:8.66", {"label": "v", "x": 2.5, "y": 8.66, "h": 0}),  # Top-left vertex
         ("v:7.5:8.66", {"label": "v", "x": 7.5, "y": 8.66, "h": 0}),  # Top-right vertex
         ("v:10.0:5.0", {"label": "v", "x": 10.0, "y": 5.0, "h": 0}),  # Right vertex
@@ -23,10 +23,10 @@ def graph_missing_vertex() -> nx.Graph:
 
     # Add edges to form the hexagon and connections to hanging nodes
     G.add_edges_from([
-        #("v:0.0:5.0", "v:2.5:8.66", {"label": "E", "B": 1}),
+        ("v:0.0:5.0", "v:2.5:8.66", {"label": "E", "B": 1}),
         ("v:7.5:8.66", "v:10.0:5.0", {"label": "E", "B": 1}),
         ("v:10.0:5.0", "v:7.5:1.34", {"label": "E", "B": 1}),
-        #("v:2.5:1.34", "v:0.0:5.0", {"label": "E", "B": 1}),
+        ("v:2.5:1.34", "v:0.0:5.0", {"label": "E", "B": 1}),
 
         # Hanging node connections
         ("v:2.5:8.66", "v:5.0:8.66", {"label": "E", "B": 1}),
@@ -35,7 +35,7 @@ def graph_missing_vertex() -> nx.Graph:
         ("v:2.5:1.34", "v:7.5:1.34", {"label": "E", "B": 1}),
 
         # Connections to center node
-        #("S:5.0:5.0", "v:0.0:5.0"),
+        ("S:5.0:5.0", "v:0.0:5.0"),
         ("S:5.0:5.0", "v:2.5:8.66"),
         ("S:5.0:5.0", "v:7.5:8.66"),
         ("S:5.0:5.0", "v:10.0:5.0"),
@@ -46,9 +46,12 @@ def graph_missing_vertex() -> nx.Graph:
     return G
 
 def test():
-    graph = graph_missing_vertex()
+    graph = graph_missing_edge()
     production = ProductionP12(graph)
     plot_graph(graph)
 
     result = production.extract_left_side()
-    assert result is None, "No suitable nodes found to apply the production"
+    #assert result is not None, "No suitable nodes found to apply the production"
+    production.apply()
+    plot_graph(graph)
+    assert graph.nodes['v:1.25:3.17']['h'] == 1, "Node v:1.25:3.17 should be hanging"

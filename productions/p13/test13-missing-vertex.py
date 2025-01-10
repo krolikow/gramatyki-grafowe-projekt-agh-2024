@@ -1,6 +1,6 @@
 from fake_graphs import *
 from plot_graph import plot_graph
-from productions.p12.production12 import ProductionP12
+from productions.p13.production13 import ProductionP13
 
 def graph_missing_vertex() -> nx.Graph:
     G = nx.Graph()
@@ -18,7 +18,7 @@ def graph_missing_vertex() -> nx.Graph:
 
         # Hanging nodes (on edges)
         ("v:5.0:8.66", {"label": "v", "x": 5.0, "y": 8.66, "h": 1}),  # Hanging node on top edge
-        ("v:8.75:3.17", {"label": "v", "x": 8.75, "y": 3.17, "h": 1}),  # Hanging node on bottom edge
+        ("v:5.0:1.34", {"label": "v", "x": 5.0, "y": 1.34, "h": 1}),  # Hanging node on bottom edge
     ])
 
     # Add edges to form the hexagon and connections to hanging nodes
@@ -31,8 +31,8 @@ def graph_missing_vertex() -> nx.Graph:
         # Hanging node connections
         ("v:2.5:8.66", "v:5.0:8.66", {"label": "E", "B": 1}),
         ("v:7.5:8.66", "v:5.0:8.66", {"label": "E", "B": 1}),
-        ("v:7.5:1.34", "v:8.75:3.17", {"label": "E", "B": 1}),
-        ("v:2.5:1.34", "v:7.5:1.34", {"label": "E", "B": 1}),
+        ("v:7.5:1.34", "v:5.0:1.34", {"label": "E", "B": 1}),
+        ("v:2.5:1.34", "v:5.0:1.34", {"label": "E", "B": 1}),
 
         # Connections to center node
         #("S:5.0:5.0", "v:0.0:5.0"),
@@ -47,7 +47,7 @@ def graph_missing_vertex() -> nx.Graph:
 
 def test():
     graph = graph_missing_vertex()
-    production = ProductionP12(graph)
+    production = ProductionP13(graph)
     plot_graph(graph)
 
     result = production.extract_left_side()
