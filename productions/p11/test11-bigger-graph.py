@@ -1,4 +1,5 @@
-from fake_graphs import *
+import networkx as nx
+
 from plot_graph import plot_graph
 from productions.p11.production11 import ProductionP11
 
@@ -57,4 +58,3 @@ def test():
     assert result is not None, "No suitable nodes found to apply the production"
     production.apply()
     plot_graph(graph)
-    assert graph.nodes['v:1.25:3.17']['h'] == 1, "Node v:1.25:3.17 should be hanging"

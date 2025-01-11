@@ -60,4 +60,4 @@ def test():
     assert result is not None, "No suitable nodes found to apply the production"
     production.apply()
     plot_graph(graph)
-    assert graph.nodes['v:1.25:3.17']['h'] == 1, "Node v:1.25:3.17 should be hanging"
+

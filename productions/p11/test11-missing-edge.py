@@ -1,5 +1,3 @@
-import os
-
 import networkx as nx
 
 from plot_graph import plot_graph
@@ -34,7 +32,7 @@ def graph_missing_edge() -> nx.Graph:
         ("v:7.5:8.66", "v:8.75:6.83", {"label": "E", "B": 1}),
         ("v:8.75:6.83", "v:10.0:5.0", {"label": "E", "B": 1}),
         # Connections to center node
-        #("S:5.0:5.0", "v:0.0:5.0"),
+        # ("S:5.0:5.0", "v:0.0:5.0"),
         ("S:5.0:5.0", "v:2.5:8.66"),
         ("S:5.0:5.0", "v:7.5:8.66"),
         ("S:5.0:5.0", "v:10.0:5.0"),
