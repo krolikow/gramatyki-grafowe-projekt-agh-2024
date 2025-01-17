@@ -5,18 +5,6 @@ from productions.production import Production
 
 
 class ProductionP22(Production):
-    """
-    Production P8:
-    If a "small" element is marked for breaking, mark the adjacent "large" element for breaking as well.
-
-    Conditions:
-    - (R1 == 0) and (R2 == 1) and (h5 = 1)
-
-    After applying the production:
-    - R1 is set to 1
-    - R2 remains 1 (marked for breaking)
-    - h5 remains a hanging node
-    """
 
     def extract_left_side(self):
         q_nodes = [node for node, data in self.graph.nodes(data=True) if (data.get('label') == 'P' or data.get('label') == 'Q')]

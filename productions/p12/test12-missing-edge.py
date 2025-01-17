@@ -2,6 +2,7 @@ from fake_graphs import *
 from plot_graph import plot_graph
 from productions.p12.production12 import ProductionP12
 
+
 def graph_missing_edge() -> nx.Graph:
     G = nx.Graph()
     # Add the center node
@@ -36,7 +37,6 @@ def graph_missing_edge() -> nx.Graph:
         ("v:2.5:1.34", "v:7.5:1.34", {"label": "E", "B": 1}),
 
         # Connections to center node
-        #("S:5.0:5.0", "v:0.0:5.0"),
         ("S:5.0:5.0", "v:2.5:8.66"),
         ("S:5.0:5.0", "v:7.5:8.66"),
         ("S:5.0:5.0", "v:10.0:5.0"),
@@ -45,6 +45,7 @@ def graph_missing_edge() -> nx.Graph:
     ])
 
     return G
+
 
 def test():
     graph = graph_missing_edge()
