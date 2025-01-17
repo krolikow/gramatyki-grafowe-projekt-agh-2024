@@ -5,7 +5,6 @@ from productions.p12.production12 import ProductionP12
 if __name__ == '__main__':
     G = nx.Graph()
     # Add the center node
-# Add the center node
     G.add_node("S:5.0:5.0", label="P", R=1)
     # Add nodes to form a hexagon with two hanging nodes
     G.add_nodes_from([
