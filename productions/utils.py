@@ -185,18 +185,19 @@ def add_hyperedge_to_graph(G: nx.Graph, nodes: list, hyperedge_label='Q', breaka
 
 def find_q_with_one_neighbor_xy(graph: nx.Graph, x_val: int, y_val: int) -> str | None:
     """
-    Zwraca nazwę węzła Q (label='Q', R=0), który ma dokładnie 1 sąsiada
-    o nazwie dopasowanej do ^v:\d+:y_val, a ów sąsiad musi mieć x == x_val,
-    czyli pasować do ^v:x_val:y_val.
-    Jeśli nie znajdzie, zwraca None.
+    Returns the name of a Q node (label='Q', R=0) that has exactly one neighbor
+    whose name matches the ^v:\d+:y_val pattern, and that neighbor must have x == x_val,
+    meaning it matches ^v:x_val:y_val.
+    If no such node is found, returns None.
     """
 
-    pattern_any_x = rf"^v:\d+:{y_val}$"
+    pattern_any_x = re.compile(r"^v:\d+(?:\.\d+)?:16(?:\.\d+)?$")
     pattern_exact = rf"^v:{x_val}:{y_val}$"
 
     for node, data in graph.nodes(data=True):
         if data.get("label") == "Q" and data.get("R") == 0:
             neighbors = list(graph.neighbors(node))
+            print(neighbors)
             
             y_neighbors = [nbr for nbr in neighbors if re.match(pattern_any_x, nbr)]
             
