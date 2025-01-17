@@ -25,7 +25,8 @@ def graph_missing_edge() -> nx.Graph:
     G.add_edges_from([
         ("v:0.0:5.0", "v:2.5:8.66", {"label": "E", "B": 1}),
         ("v:7.5:8.66", "v:10.0:5.0", {"label": "E", "B": 1}),
-        ("v:10.0:5.0", "v:7.5:1.34", {"label": "E", "B": 1}),
+        ("v:8.75:3.17", "v:7.5:1.34", {"label": "E", "B": 1}),
+        ("v:8.75:3.17", "v:10.0:5.0", {"label": "E", "B": 1}),
         ("v:2.5:1.34", "v:0.0:5.0", {"label": "E", "B": 1}),
 
         # Hanging node connections
