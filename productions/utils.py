@@ -174,7 +174,10 @@ def prepare_big_graph() -> nx.Graph:
 
     return G
 
-def add_hyperedge_to_graph(G: nx.Graph, nodes: list, hyperedge_label='Q',  breakable=True):
+def add_hyperedge_to_graph(G: nx.Graph, nodes: list, hyperedge_label='Q', breakable=True, unique_id=True):
     """Add a hyperedge to the graph G."""
-    G.add_node(hyperedge_label, label=hyperedge_label, R=1 if breakable else 0)
-    G.add_edges_from([(node, hyperedge_label) for node in nodes])
+
+    label = f"{hyperedge_label}_{len(G.nodes) + 1}" if unique_id else hyperedge_label
+    
+    G.add_node(label, label=hyperedge_label, R=1 if breakable else 0)
+    G.add_edges_from((node, label) for node in nodes)
