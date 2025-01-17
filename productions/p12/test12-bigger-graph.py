@@ -2,6 +2,7 @@ from fake_graphs import *
 from plot_graph import plot_graph
 from productions.p12.production12 import ProductionP12
 
+
 def graph_with_additional_edges() -> nx.Graph:
     G = nx.Graph()
     # Add the center node
@@ -60,4 +61,3 @@ def test():
     assert result is not None, "No suitable nodes found to apply the production"
     production.apply()
     plot_graph(graph)
-
