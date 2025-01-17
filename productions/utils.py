@@ -1,4 +1,5 @@
 import networkx as nx
+import re
 
 
 def prepare_basic_square_graph() -> nx.Graph:
@@ -181,3 +182,28 @@ def add_hyperedge_to_graph(G: nx.Graph, nodes: list, hyperedge_label='Q', breaka
     
     G.add_node(label, label=hyperedge_label, R=1 if breakable else 0)
     G.add_edges_from((node, label) for node in nodes)
+
+def find_q_with_one_neighbor_xy(graph: nx.Graph, x_val: int, y_val: int) -> str | None:
+    """
+    Zwraca nazwę węzła Q (label='Q', R=0), który ma dokładnie 1 sąsiada
+    o nazwie dopasowanej do ^v:\d+:y_val, a ów sąsiad musi mieć x == x_val,
+    czyli pasować do ^v:x_val:y_val.
+    Jeśli nie znajdzie, zwraca None.
+    """
+
+    pattern_any_x = rf"^v:\d+:{y_val}$"
+    pattern_exact = rf"^v:{x_val}:{y_val}$"
+
+    for node, data in graph.nodes(data=True):
+        if data.get("label") == "Q" and data.get("R") == 0:
+            neighbors = list(graph.neighbors(node))
+            
+            y_neighbors = [nbr for nbr in neighbors if re.match(pattern_any_x, nbr)]
+            
+            if len(y_neighbors) == 1:
+                candidate = y_neighbors[0]
+                
+                if re.match(pattern_exact, candidate):
+                    return node 
+
+    return None
