@@ -16,19 +16,19 @@ if __name__ == '__main__':
         ("v:2.5:1.34", {"label": "v", "x": 2.5, "y": 1.34, "h": 0}),  # Bottom-left vertex
         # Hanging nodes (on edges)
         ("v:5.0:8.66", {"label": "v", "x": 5.0, "y": 8.66, "h": 1}),  # Hanging node on top edge
-        ("v:8.75:6.83", {"label": "v", "x": 8.75, "y": 6.83, "h": 1}),  # Hanging node on bottom edge
+        ("v:1.25:6.83", {"label": "v", "x": 1.25, "y": 6.83, "h": 1}),  # Hanging node on bottom edge
     ])
     # Add edges to form the hexagon and connections to hanging nodes
     G.add_edges_from([
-        ("v:0.0:5.0", "v:2.5:8.66", {"label": "E", "B": 1}),
+        ("v:10.0:5.0", "v:7.5:8.66", {"label": "E", "B": 1}),
         ("v:10.0:5.0", "v:7.5:1.34", {"label": "E", "B": 1}),
         ("v:7.5:1.34", "v:2.5:1.34", {"label": "E", "B": 1}),
         ("v:2.5:1.34", "v:0.0:5.0", {"label": "E", "B": 1}),
         # Hanging node connections
         ("v:2.5:8.66", "v:5.0:8.66", {"label": "E", "B": 1}),
         ("v:7.5:8.66", "v:5.0:8.66", {"label": "E", "B": 1}),
-        ("v:7.5:8.66", "v:8.75:6.83", {"label": "E", "B": 1}),
-        ("v:8.75:6.83", "v:10.0:5.0", {"label": "E", "B": 1}),
+        ("v:2.5:8.66", "v:1.25:6.83", {"label": "E", "B": 1}),
+        ("v:1.25:6.83", "v:0.0:5.0", {"label": "E", "B": 1}),
         # Connections to center node
         ("S:5.0:5.0", "v:0.0:5.0"),
         ("S:5.0:5.0", "v:2.5:8.66"),
@@ -37,7 +37,6 @@ if __name__ == '__main__':
         ("S:5.0:5.0", "v:7.5:1.34"),
         ("S:5.0:5.0", "v:2.5:1.34"),
     ])
-
     plot_graph(G)
     prod11 = ProductionP11(G)
     prod11.apply()
