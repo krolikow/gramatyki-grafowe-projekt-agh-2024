@@ -49,3 +49,9 @@ def test():
     graph = graph_missing_vertex()
     production = ProductionP13(graph)
     plot_graph(graph)
+
+    result = production.extract_left_side()
+    assert result is not None, "No suitable nodes found to apply the production"
+
+    production.apply()
+    plot_graph(graph)
