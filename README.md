@@ -2,13 +2,13 @@
 
 ## Podział na grupy
 
-| Grupa | Produkcje | Osoby                               |
-| --- | --- |---------------------------------------------|
-| Grupa 1 | P1, P2 | Damian Tworek, Bartłomiej Wiśniewski |
-| Grupa 2 | P3, P4, P7 |                                      |
-| Grupa 3 | P5, P6, P8 |                                      |
+| Grupa | Produkcje | Osoby                                  |
+| --- | --- |----------------------------------------|
+| Grupa 1 | P1, P2 | Damian Tworek, Bartłomiej Wiśniewski   |
+| Grupa 2 | P3, P4, P7 | Wojciech Przybytek, Dariusz Piwowarski |
+| Grupa 3 | P5, P6, P8 |                                        |
 | Grupa 4 | P9, P10, P21 | Maciej Nessel, Tomasz Ostafin         |
-| Grupa 5 | P11, P12, P22 |                                      |
+| Grupa 5 | P11, P12, P22 |                                        |
 
 ## Organizacja pracy
 

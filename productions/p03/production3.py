@@ -19,12 +19,12 @@ class ProductionP3(Production):
             if not vertex_with_two_hanging_middles:
                 continue
 
-            n1, m12, n2, m13, n3 = vertex_with_two_hanging_middles
-            if self._is_valid_middle(n1, m12, n2) and self._is_valid_middle(
-                n1, m13, n3
+            n1, m1, n2, n3, m2, n4 = vertex_with_two_hanging_middles
+            if self._is_valid_middle(n1, m1, n2) and self._is_valid_middle(
+                n3, m2, n4
             ):
                 return (
-                    self._extract_subgraph(node, neighbors + [m12, m13]),
+                    self._extract_subgraph(node, neighbors + [m1, m2]),
                     vertex_with_two_hanging_middles,
                 )
         return None
@@ -32,18 +32,18 @@ class ProductionP3(Production):
     def apply(self):
         result = self.extract_left_side()
         if result is not None:
-            (q, neighbors), (n1, m12, n2, m13, n3) = result
-            self._remove_nodes(q, neighbors, m12, m13)
+            (q, neighbors), (n1, m1, n2, n3, m2, n4) = result
+            self._remove_nodes(q, neighbors, m1, m2)
 
-            midpoints = {m12: (n1, n2), m13: (n1, n3)}
+            midpoints = {m1: (n1, n2), m2: (n3, n4)}
             self._create_midpoints(neighbors, midpoints)
 
             phantom_edge_data = {
-                (n1, n2): self.graph.get_edge_data(n1, m12),
-                (n1, n3): self.graph.get_edge_data(n1, m13),
+                (n1, n2): self.graph.get_edge_data(n1, m1),
+                (n3, n4): self.graph.get_edge_data(n3, m2),
             }
             self._fill_graph(neighbors, midpoints, edge_data=phantom_edge_data)
-            self._update_subgraph_nodes(m12, m13)
+            self._update_subgraph_nodes(m1, m2)
 
             self.graph.update(self.subgraph)
 
@@ -69,13 +69,13 @@ class ProductionP3(Production):
         return all(self.graph.nodes[n].get("h") == 0 for n in neighbors)
 
     def _find_vertex_with_two_hanging_middles(self, neighbors) -> None | list:
-        for node in neighbors:
-            other_neighbors = [n for n in neighbors if n != node]
-            for a, b in combinations(other_neighbors, 2):
-                m1 = self._find_middlepoint(node, a)
-                m2 = self._find_middlepoint(node, b)
-                if m1 and m2:
-                    return node, m1, a, m2, b
+        hanging_middles = []
+        for a, b in combinations(neighbors, 2):
+            m = self._find_middlepoint(a, b)
+            if self._is_hanging_middle(m):
+                hanging_middles += [a, m, b]
+        if len(set(hanging_middles)) == 5:
+            return hanging_middles
         return None
 
     def _find_middlepoint(self, n1, n2) -> None | str:
