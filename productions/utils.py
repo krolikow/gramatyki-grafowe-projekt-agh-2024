@@ -1,4 +1,5 @@
 import networkx as nx
+import re
 
 
 def prepare_basic_square_graph() -> nx.Graph:
@@ -181,3 +182,29 @@ def add_hyperedge_to_graph(G: nx.Graph, nodes: list, hyperedge_label='Q', breaka
     
     G.add_node(label, label=hyperedge_label, R=1 if breakable else 0)
     G.add_edges_from((node, label) for node in nodes)
+
+def find_q_with_one_neighbor_xy(graph: nx.Graph, x_val: int, y_val: int) -> str | None:
+    """
+    Returns the name of a Q node (label='Q', R=0) that has exactly one neighbor
+    whose name matches the ^v:\d+:y_val pattern, and that neighbor must have x == x_val,
+    meaning it matches ^v:x_val:y_val.
+    If no such node is found, returns None.
+    """
+
+    pattern_any_x = re.compile(r"^v:\d+(?:\.\d+)?:16(?:\.\d+)?$")
+    pattern_exact = rf"^v:{x_val}:{y_val}$"
+
+    for node, data in graph.nodes(data=True):
+        if data.get("label") == "Q" and data.get("R") == 0:
+            neighbors = list(graph.neighbors(node))
+            print(neighbors)
+            
+            y_neighbors = [nbr for nbr in neighbors if re.match(pattern_any_x, nbr)]
+            
+            if len(y_neighbors) == 1:
+                candidate = y_neighbors[0]
+                
+                if re.match(pattern_exact, candidate):
+                    return node 
+
+    return None
