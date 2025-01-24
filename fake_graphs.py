@@ -107,6 +107,6 @@ def start_graph() -> nx.Graph:
     add_hyperedge_to_graph(G, ['v:14:8', 'v:16:8', 'v:16:0', 'v:11:3'], breakable=False, unique_id=True)
     add_hyperedge_to_graph(G, ['v:5:3', 'v:11:3', 'v:16:0', 'v:0:0'], breakable=False, unique_id=True)
     add_hyperedge_to_graph(G, ['v:0:8', 'v:2:8', 'v:5:3', 'v:0:0'], breakable=False, unique_id=True)
-    add_hyperedge_to_graph(G, ['v:5:13', 'v:11:13', 'v:14:8', 'v:11:3', 'v:5:3', 'v:2:8'], breakable=False, unique_id=True)
+    add_hyperedge_to_graph(G, ['v:5:13', 'v:11:13', 'v:14:8', 'v:11:3', 'v:5:3', 'v:2:8'], hyperedge_label='S', breakable=False, unique_id=True)
 
     return G

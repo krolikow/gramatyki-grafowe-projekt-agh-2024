@@ -4,8 +4,19 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
+<<<<<<< Updated upstream
 def plot_graph(graph: nx.Graph, title: str = "Graph Visualization"):
     multiedges_labels = ["Q", "P"]
+=======
+def plot_graph(
+    graph: nx.Graph,
+    title: str = "Graph Visualization",
+    multiedge_node_size=5000,
+    node_size=3000,
+    font_size=15,
+):
+    multiedges_labels = ["Q", "P", "S"]
+>>>>>>> Stashed changes
 
     plt.figure(figsize=(12, 12), facecolor='black')
 
