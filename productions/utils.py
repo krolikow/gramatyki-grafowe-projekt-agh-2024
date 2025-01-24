@@ -191,13 +191,12 @@ def find_q_with_one_neighbor_xy(graph: nx.Graph, x_val: int, y_val: int) -> str 
     If no such node is found, returns None.
     """
 
-    pattern_any_x = re.compile(r"^v:\d+(?:\.\d+)?:16(?:\.\d+)?$")
+    pattern_any_x = re.compile(rf"^v:\d+(?:\.\d+)?:{y_val}(?:\.\d+)?$")
     pattern_exact = rf"^v:{x_val}:{y_val}$"
 
     for node, data in graph.nodes(data=True):
         if data.get("label") == "Q" and data.get("R") == 0:
             neighbors = list(graph.neighbors(node))
-            print(neighbors)
             
             y_neighbors = [nbr for nbr in neighbors if re.match(pattern_any_x, nbr)]
             
