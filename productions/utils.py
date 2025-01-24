@@ -197,13 +197,13 @@ def find_q_with_one_neighbor_xy(graph: nx.Graph, x_val: int, y_val: int) -> str 
     for node, data in graph.nodes(data=True):
         if data.get("label") == "Q" and data.get("R") == 0:
             neighbors = list(graph.neighbors(node))
-            
+
             y_neighbors = [nbr for nbr in neighbors if re.match(pattern_any_x, nbr)]
-            
+
             if len(y_neighbors) == 1:
                 candidate = y_neighbors[0]
-                
+
                 if re.match(pattern_exact, candidate):
-                    return node 
+                    return node
 
     return None
