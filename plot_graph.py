@@ -4,7 +4,13 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
-def plot_graph(graph: nx.Graph, title: str = "Graph Visualization"):
+def plot_graph(
+    graph: nx.Graph,
+    title: str = "Graph Visualization",
+    multiedge_node_size=5000,
+    node_size=3000,
+    font_size=15,
+):
     multiedges_labels = ["Q", "P"]
 
     plt.figure(figsize=(12, 12), facecolor='black')
@@ -17,10 +23,10 @@ def plot_graph(graph: nx.Graph, title: str = "Graph Visualization"):
         with_labels=True,
         labels=node_labels(graph, multiedges_labels),
         node_color=node_colors(graph, multiedges_labels),
-        node_size=node_sizes(graph, multiedges_labels),
+        node_size=node_sizes(graph, multiedges_labels, multiedge_node_size, node_size),
         edge_color="gray",
         width=2,
-        font_size=15,
+        font_size=font_size,
         font_weight='bold',
         font_color='black',
         alpha=0.8,
@@ -30,7 +36,7 @@ def plot_graph(graph: nx.Graph, title: str = "Graph Visualization"):
         graph,
         pos=positions,
         edge_labels=edge_labels(graph),
-        font_size=14,
+        font_size=font_size,
         font_color='black',
         font_weight='bold',
     )
@@ -48,16 +54,16 @@ def node_labels(graph, multiedges_labels):
         if label in multiedges_labels:
             labels[node] = f"{label}\nR = {data.get('R')}"
         else:
-            labels[node] = (
-                f"x = {data.get('x')}\ny = {data.get('y')}\nh = {data.get('h')}"
-            )
+            x = round(data.get("x"), 2)
+            y = round(data.get("y"), 2)
+            labels[node] = f"x = {x}\ny = {y}\nh = {data.get('h')}"
 
     return labels
 
 
-def node_sizes(graph, multiedges_labels):
+def node_sizes(graph, multiedges_labels, mutliedge_size, size):
     sizes = [
-        3000 if data.get("label") in multiedges_labels else 5500
+        size if data.get("label") in multiedges_labels else mutliedge_size
         for _, data in graph.nodes(True)
     ]
     return sizes
