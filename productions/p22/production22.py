@@ -7,7 +7,7 @@ from productions.production import Production
 class ProductionP22(Production):
 
     def extract_left_side(self):
-        q_nodes = [node for node, data in self.graph.nodes(data=True) if (data.get('label') == 'P' or data.get('label') == 'Q')]
+        q_nodes = [node for node, data in self.graph.nodes(data=True) if (data.get('label') == 'S' or data.get('label') == 'Q')]
         q_nodes_r_1 = [node for node in q_nodes if self.graph.nodes[node].get('R') == 1]
         q_nodes_r_0 = [node for node in q_nodes if self.graph.nodes[node].get('R') == 0]
 
@@ -47,7 +47,7 @@ class ProductionP22(Production):
         return (node1, node2) if self.graph.nodes[node1].get('R') == 0 else (node2, node1)
 
     def extract_left_side_to_specific_place(self, q_node_r_1):
-        q_nodes = [node for node, data in self.graph.nodes(data=True) if data.get('label') == 'Q' or data.get('label') == 'P']
+        q_nodes = [node for node, data in self.graph.nodes(data=True) if data.get('label') == 'Q' or data.get('label') == 'S']
         q_nodes_r_0 = [node for node in q_nodes if self.graph.nodes[node].get('R') == 0]
 
         for q_node_r_0 in q_nodes_r_0:
@@ -58,7 +58,7 @@ class ProductionP22(Production):
 
     def apply_to_specific_place(self, node_to_break):
         if not (node_to_break in self.graph.nodes and
-                self.graph.nodes[node_to_break].get('label') == 'P' and
+                self.graph.nodes[node_to_break].get('label') == 'S' and
                 self.graph.nodes[node_to_break].get('R') == 1):
             return
 
@@ -73,7 +73,7 @@ class ProductionP22(Production):
 
 
 def is_hyper_edge_node(data):
-    return data.get('label') == 'Q' or data.get('label') == 'P'
+    return data.get('label') == 'Q' or data.get('label') == 'S'
 
 
 def can_be_split(data):

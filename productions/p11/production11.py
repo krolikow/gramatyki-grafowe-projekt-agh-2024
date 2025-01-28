@@ -29,7 +29,7 @@ def is_valid_neighbors(graph, neighbors) -> bool:
 class ProductionP11(Production):
     def extract_left_side(self) -> None | tuple:
         for node, data in self.graph.nodes(data=True):
-            if not data.get("label") == "P" or not data.get("R") == 1:  # is not splittable hyperedge
+            if not data.get("label") == "S" or not data.get("R") == 1:  # is not splittable hyperedge
                 continue
 
             neighbors = list(self.graph.neighbors(node))
@@ -67,6 +67,8 @@ class ProductionP11(Production):
             self._update_subgraph_nodes(m12, m13)
 
             self.graph.update(self.subgraph)
+        else:
+            print('Not applicable')
 
 
 
